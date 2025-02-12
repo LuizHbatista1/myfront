@@ -1,0 +1,225 @@
+
+body{
+
+  background-color: #FFF5D0 ;
+
+
+}
+
+
+.cards-container {
+  display: flex;
+  background-color: #FFF5D0;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  overflow: visible; /* Garantir que o conteúdo não seja cortado */
+}
+
+
+.article {
+  width: 90%; /* Para telas menores, ocupa quase toda a largura */
+  max-width: 300px; /* Evita que fique muito grande em telas maiores */
+  background: rgba(255, 255, 255, 0.1);
+  background-color: #e36849;
+  border-radius: 10px;
+  padding: 15px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid #fff;
+}
+
+.article img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.article-body {
+  margin-top: 10px;
+}
+
+.article h2, .article p {
+  color: #F2E5D3;
+}
+
+.article-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 0;
+  padding: 10px;
+  min-height: 100vh; /* Altura mínima, mas expansível */
+}
+
+.article-wrapper:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+figure {
+    margin: 0;
+    position: relative;
+}
+
+figure img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+.article-body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.tag {
+    display: inline-block;
+    background-color: #137C78;
+    color: #F2E5D3;
+    padding: 5px 10px;
+    font-size: 12px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold;
+}
+
+h2 {
+    font-size: 20px;
+    color: #F2E5D3;
+    margin: 0;
+}
+
+p {
+    font-size: 17px;
+    color: #555;
+    line-height: 1.6;
+}
+
+  
+
+#heart {
+  display: none;
+}
+
+.like-button {
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  height: 36px; /* Reduzir a altura */
+  width: 100px; /* Reduzir a largura */
+  border-radius: 1px; /* Ajustar o raio da borda */
+  border: none;
+  border-color: #007bff;
+  background-color: #FFBE2F;
+  overflow: hidden;
+}
+
+.like {
+  width: 70%;
+  height: 100%;
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.like-icon {
+  fill: #770606;
+  height: 20px; /* Reduzir o tamanho do ícone */
+  width: 20px; /* Reduzir o tamanho do ícone */
+}
+
+.like-text {
+  color: #000000;
+  font-size: 14px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.like-count {
+  position: absolute;
+  right: 0;
+  width: 30%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #000000;
+  font-size: 16px;
+  border-left: 2px solid #4e4e4e;
+  transition: all 0.5s ease-out;
+}
+
+.like-count.two {
+  transform: translateY(40px);
+}
+
+.on:checked ~ .like .like-icon {
+  fill: #fc4e4e;
+  animation: enlarge 0.2s ease-out 1;
+  transition: all 0.2s ease-out;
+}
+
+.on:checked ~ .like-count.two {
+  transform: translateX(0);
+  color: #fcfcfc;
+}
+
+.on:checked ~ .like-count.one {
+  transform: translateY(-40px);
+}
+
+@keyframes enlarge {
+  0% {
+    transform: scale(0.5);
+  }
+  100% {
+    transform: scale(1.2);
+  }
+}
+
+.container input {
+  position: relative;
+  right: 700px;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.container {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+}
+
+.container svg {
+  position: relative;
+  top: -57px;
+  left: 100px; /* Mover mais para a esquerda */
+  height: 50px;
+  width: 50px;
+  transition: all 0.3s;
+}
+
+.container svg:hover {
+  transform: scale(1.1);
+}
+
+.container input:checked ~ svg {
+  fill: #ffeb49;
+}
+  
+
+
+
