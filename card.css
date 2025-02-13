@@ -139,12 +139,6 @@ p {
   width: 20px; /* Reduzir o tamanho do ícone */
 }
 
-.like-text {
-  color: #000000;
-  font-size: 14px;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-}
-
 .like-count {
   position: absolute;
   right: 0;
@@ -163,63 +157,16 @@ p {
   transform: translateY(40px);
 }
 
-.on:checked ~ .like .like-icon {
-  fill: #fc4e4e;
-  animation: enlarge 0.2s ease-out 1;
-  transition: all 0.2s ease-out;
-}
-
-.on:checked ~ .like-count.two {
-  transform: translateX(0);
-  color: #fcfcfc;
-}
-
-.on:checked ~ .like-count.one {
-  transform: translateY(-40px);
-}
-
-@keyframes enlarge {
-  0% {
-    transform: scale(0.5);
-  }
-  100% {
-    transform: scale(1.2);
-  }
-}
-
-.container input {
-  position: relative;
-  right: 700px;
-  opacity: 0;
-  cursor: pointer;
-  height: 0;
-  width: 0;
-}
-
-.container {
-  display: block;
+.favorite-button {
   position: relative;
   cursor: pointer;
-  user-select: none;
+  display: flex;
+  height: 36px; /* Reduzir a altura */
+  width: 100px; /* Reduzir a largura */
+  border-radius: 1px; /* Ajustar o raio da borda */
+  border: none;
+  border-color: #007bff;
+  background-color: #FFBE2F;
+  overflow: hidden;
 }
-
-.container svg {
-  position: relative;
-  top: -57px;
-  left: 100px; /* Mover mais para a esquerda */
-  height: 50px;
-  width: 50px;
-  transition: all 0.3s;
-}
-
-.container svg:hover {
-  transform: scale(1.1);
-}
-
-.container input:checked ~ svg {
-  fill: #ffeb49;
-}
-  
-
-
 
