@@ -20,7 +20,7 @@
             <span class="tag text-sm text-blue-600" x-text="card.tag"></span>
             <h2 class="text-xl font-bold mt-2" x-text="card.title"></h2>
             <p class="text-gray-700 mt-2" x-text="card.description"></p>
-    
+        
             <!-- Botão de Like -->
             <div class="like-button flex items-center mt-4">
               <button @click="toggleLike(card.postId)" class="like flex items-center">
@@ -30,13 +30,41 @@
               </button>
               <span class="like-count ml-2 text-gray-600" x-text="card.numberOfLikes"></span>
             </div>
-            <!-- Fim do Botão de Like -->
-            <div class="favorite-button flex items-center mt-4">
-              <button @click="toggleFavorite(card.postId)" class="like flex items-center">
-                <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"><path d="M121.5 4.75H6.5A1.75 1.75 0 0 0 4.75 6.5v115a1.75 1.75 0 0 0 1.75 1.75h115a1.75 1.75 0 0 0 1.75-1.75V6.5a1.75 1.75 0 0 0-1.75-1.75zm-1.75 115H8.25V8.25h111.5z"/><path d="m42.216 75.075-4.543 26.488a1.75 1.75 0 0 0 2.539 1.845L64 90.9l23.788 12.506a1.75 1.75 0 0 0 2.539-1.845l-4.543-26.486 19.245-18.76a1.749 1.749 0 0 0-.97-2.984l-26.6-3.865-11.894-24.1a1.75 1.75 0 0 0-3.139 0l-11.894 24.1-26.6 3.865a1.749 1.749 0 0 0-.97 2.984zM51.95 52.8a1.747 1.747 0 0 0 1.318-.957L64 30.095 74.732 51.84a1.747 1.747 0 0 0 1.318.957l24 3.487-17.368 16.927a1.749 1.749 0 0 0-.5 1.549l4.1 23.9-21.468-11.284a1.749 1.749 0 0 0-1.629 0L41.722 98.66l4.1-23.9a1.749 1.749 0 0 0-.5-1.549L27.953 56.284z"/></svg>
-              </button>
+        
+            <!-- Botão de Save -->
+            <div class="save-button flex items-center mt-4">
+              <label class="container">
+                <input
+                  type="checkbox"
+                  x-model="card.isSaved"
+                  @change="toggleSave(card.postId)"
+                  class="hidden"
+                />
+                <svg
+                  class="save-regular w-6 h-6"
+                  xmlns="http://www.w3.org/2000/svg"
+                  height="1em"
+                  viewBox="0 0 384 512"
+                  x-show="!card.isSaved"
+                >
+                  <path
+                    d="M0 48C0 21.5 21.5 0 48 0l0 48V441.4l130.1-92.9c8.3-6 19.6-6 27.9 0L336 441.4V48H48V0H336c26.5 0 48 21.5 48 48V488c0 9-5 17.2-13 21.3s-17.6 3.4-24.9-1.8L192 397.5 37.9 507.5c-7.3 5.2-16.9 5.9-24.9 1.8S0 497 0 488V48z"
+                  ></path>
+                </svg>
+                <svg
+                  class="save-solid w-6 h-6"
+                  xmlns="http://www.w3.org/2000/svg"
+                  height="1em"
+                  viewBox="0 0 384 512"
+                  x-show="card.isSaved"
+                >
+                  <path
+                    d="M0 48V487.7C0 501.1 10.9 512 24.3 512c5 0 9.9-1.5 14-4.4L192 400 345.7 507.6c4.1 2.9 9 4.4 14 4.4c13.4 0 24.3-10.9 24.3-24.3V48c0-26.5-21.5-48-48-48H48C21.5 0 0 21.5 0 48z"
+                  ></path>
+                </svg>
+              </label>
             </div>
-            
+          </div>
         </div>
       </template>
     </div>
@@ -91,6 +119,35 @@
     }
   } catch (error) {
     console.error("❌ Error toggling like:", error);
+  }
+},
+
+async toggleSave(postId) {
+  try {
+    const token = localStorage.getItem('jwtToken');
+    const response = await fetch("http://localhost:9090/apiV1/favorite", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({ postId: postId })
+    });
+
+    if (!response.ok) throw new Error(`Erro ao alternar save: ${response.statusText}`);
+
+    const updatedUser = await response.json();
+
+    // Atualiza o estado de "isSaved" no card correspondente
+    const cardIndex = this.cards.findIndex(card => card.postId === postId);
+    if (cardIndex !== -1) {
+      const isSaved = updatedUser.savedPosts.some(savedPost => savedPost.postId === postId);
+      this.cards[cardIndex].isSaved = isSaved;
+    } else {
+      console.error("❌ Card não encontrado para o postId:", postId);
+    }
+  } catch (error) {
+    console.error("❌ Error toggling save:", error);
   }
 },
 
